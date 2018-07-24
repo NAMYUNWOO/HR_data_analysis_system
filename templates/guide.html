@@ -1,0 +1,39 @@
+{% extends './base.html' %}
+{% block content %}
+{% load static %}
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-md-12" style="margin-top:10px;">
+                <h1>사용자 가이드</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" align="center">
+        <div class="row">
+            <img src="{% static '/imgs/guide5.jpeg' %}"  alt="guide1" height="100%" width="100%">
+        </div>
+        <hr>
+        <div class="row">
+            <img src="{% static '/imgs/guide1.jpeg' %}"  alt="guide1" height="100%" width="100%">
+        </div>
+        <hr>
+        <div class="row">
+            <img src="{% static '/imgs/guide2.jpeg' %}"  alt="guide1" height="100%" width="100%">
+        </div>
+        <hr>
+        <div class="row">
+            <img src="{% static '/imgs/guide3.jpg' %}"  alt="guide1" height="100%" width="100%">
+        </div>
+        <hr>
+        <div class="row">
+            <img src="{% static '/imgs/guide4.jpeg' %}"  alt="guide1" height="100%" width="100%">
+        </div>
+
+    </div>
+<hr>
+</main>
+{% endblock %}

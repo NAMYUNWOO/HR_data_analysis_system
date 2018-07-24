@@ -1,0 +1,23 @@
+{% extends './base.html' %}
+{% block content %}
+{% load static %}
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-md-12" style="margin-top:10px;">
+                <h1>데이터 입력 실패</h1>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" align="left">
+        <div class="row">
+            <h2>{{ err|linebreaks }}</h2>
+        </div>
+    </div>
+<hr>
+</main>
+{% endblock %}

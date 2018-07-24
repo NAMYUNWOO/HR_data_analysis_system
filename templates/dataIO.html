@@ -1,0 +1,264 @@
+{% extends './base.html' %}
+{% block content %}
+<main role="main" xmlns="http://www.w3.org/1999/html">
+    <style>
+.row-fluid{
+    white-space: nowrap;
+}
+.row-fluid .col-md-3{
+    display: inline-block;
+}
+   </style>
+    <div class="jumbotron"  style="overflow: auto">
+        <div class="container" style="white-space: nowrap;display: inline-block;">
+            <h1 class="display-3">데이터관리</h1>
+            <br>
+            &nbsp;&nbsp;
+            <div class="container">
+                <h5><strong>로그 데이터 이력</strong></h5>
+                &nbsp;
+                <table border="1" cellpadding="10px">
+                    <tbody>
+                    <tr>
+                        <th>로그데이터</th>
+                        <th>새 데이터</th>
+                        <th>입력된 로그데이터 범위</th>
+                        <th>Task 수행 범위 지정</th>
+                        <th>Task1</th>
+                        <th>Task2</th>
+
+                    </tr>
+                    {% for logDataSelect in logDataSelects %}
+                    <tr>
+                        <form action="."  enctype="multipart/form-data" method="post">
+
+                            <th>{{ logDataSelect.visible_fields.0.label  }}</th>
+                            <td>{{ form1.visible_fields.0 }} {% csrf_token %} <button type="submit" name= 'input_{{ logDataSelect.visible_fields.0.label }}' >입력</button></td>
+                            <td>{{ logDataSelect.dataRange  }}</td>
+                        </form>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td>{{ logDataSelect.visible_fields.1.label  }}&nbsp;{{ logDataSelect.visible_fields.1  }}&nbsp;&nbsp;~&nbsp;&nbsp;{{ logDataSelect.visible_fields.2.label  }}&nbsp;{{ logDataSelect.visible_fields.2  }}</td>
+                            {% csrf_token %}
+                            {% if logDataSelect.visible_fields.0.label == "Reward_log" %}
+                                <td><button type="submit" name= 'preprocess_{{ logDataSelect.visible_fields.0.label }}' disabled >전처리</button></td>
+                            {% else %}
+                                <td><button type="submit" name= 'preprocess_{{ logDataSelect.visible_fields.0.label }}' >전처리</button></td>
+                            {% endif %}
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'removeWithDatetime_{{ logDataSelect.visible_fields.0.label }}' >삭제</button></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <br>
+
+                <h5><strong>HR 정형 데이터 이력</strong></h5>
+                &nbsp;
+                <table border="1" cellpadding="10px">
+                    <tbody>
+                    <tr>
+                        <th>데이터</th>
+                        <th>입력 데이터 유효 범위</th>
+                        <th>입력 수행</th>
+                        <th>입력된 데이터 범위 </th>
+                        <th>지정범위 출력</th>
+                        <th>지정범위 삭제</th>
+                    </tr>
+                    {% for hrDataSelect in hrDataSelects %}
+                    <tr>
+                        <th>{{ hrDataSelect.visible_fields.0.label  }}</th>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            {% if forloop.counter0 == 0 %}
+                                <td rowspan={{ hrDataSelects|length }} align="center">{{ hrDataSelect.visible_fields.1.label  }}&nbsp;{{ hrDataSelect.visible_fields.1  }}&nbsp;&nbsp;~&nbsp;&nbsp;{{ hrDataSelect.visible_fields.2.label  }}&nbsp;{{ hrDataSelect.visible_fields.2  }}<br><br>
+                                    </td>
+                                <td rowspan={{ hrDataSelects|length }}>{{ form1.visible_fields.0 }}
+                                    {% csrf_token %}
+                                <button type="submit" name= 'inputWithDatetime_{{ hrDataSelect.visible_fields.0.label }}' >입력</button></td>
+                            {% endif %}
+                        </form>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td>{{ hrDataSelect.visible_fields.0  }}</td>
+
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'output_{{ hrDataSelect.visible_fields.0.label }}' >출력</button></td>
+                            {% if forloop.counter0 == 0 %}
+                            {% csrf_token %}
+                            <td rowspan={{ hrDataSelects|length }}><button type="submit" name= 'remove_{{ hrDataSelect.visible_fields.0.label }}' >삭제</button></td>
+                            {% endif %}
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <br>
+
+                <h5><strong>서베이 데이터 이력</strong></h5>
+                &nbsp;
+                <table border="1" cellpadding="10px">
+                    <tbody>
+                    <tr>
+                        <th>데이터</th>
+                        <th>입력 데이터 유효 범위</th>
+                        <th>입력 수행</th>
+                        <th>입력된 데이터 범위 </th>
+                        <th>지정범위 출력</th>
+                        <th>지정범위 삭제</th>
+                    </tr>
+                    {% for surveyDataSelect in surveyDataSelects %}
+                    <tr>
+                        <th>{{ surveyDataSelect.visible_fields.0.label  }}</th>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td align="center">{{ surveyDataSelect.visible_fields.1.label  }}&nbsp;{{ surveyDataSelect.visible_fields.1  }}&nbsp;&nbsp;~&nbsp;&nbsp;{{ surveyDataSelect.visible_fields.2.label  }}&nbsp;{{ surveyDataSelect.visible_fields.2  }}<br><br>
+                                </td>
+                            <td>{{ form1.visible_fields.0 }}
+                                {% csrf_token %}
+                            <button type="submit" name= 'inputWithDatetime_{{ surveyDataSelect.visible_fields.0.label }}' >입력</button></td>
+
+                        </form>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td>{{ surveyDataSelect.visible_fields.0  }}</td>
+
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'output_{{ surveyDataSelect.visible_fields.0.label }}' >출력</button></td>
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'remove_{{ surveyDataSelect.visible_fields.0.label }}' >삭제</button></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <br>
+                <h5><strong>전처리된 로그데이터 이력</strong></h5>
+                &nbsp;
+                <table border="1" cellpadding="10px">
+                    <tbody>
+                    <tr>
+                        <th>데이터</th>
+                        <th>전처리된 범위</th>
+                        <th>지정범위 출력</th>
+                        <th>지정범위 삭제</th>
+                    </tr>
+                    {% for processedDataSelect in processedDataSelects %}
+                    <tr>
+                        <form action="."  enctype="multipart/form-data" method="post">
+
+                            <th>{{ processedDataSelect.visible_fields.0.label  }}</th>
+                            <td>{{ processedDataSelect.visible_fields.0  }}</td>
+
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'output_{{ processedDataSelect.visible_fields.0.label }}' >출력</button></td>
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'remove_{{ processedDataSelect.visible_fields.0.label }}' >삭제</button></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <br>
+                <h5><strong>스코어 데이터 이력</strong></h5>
+                &nbsp;
+                <table border="1" cellpadding="10px">
+                    <tbody>
+                    <tr>
+                        <th>데이터</th>
+                        <th>기간 데이터 분석</th>
+                        <th>분석된 데이터 범위</th>
+                        <th>지정범위 출력</th>
+                        <th>지정범위 삭제</th>
+
+                    </tr>
+                    {% for scoreDataSelect in scoreDataSelects %}
+                    <tr>
+                        <th>{{ scoreDataSelect.visible_fields.0.label  }}</th>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td align="center">{{ scoreDataSelect.visible_fields.1.label  }}&nbsp;{{ scoreDataSelect.visible_fields.1  }}&nbsp;&nbsp;~&nbsp;&nbsp;{{ scoreDataSelect.visible_fields.2.label  }}&nbsp;{{ scoreDataSelect.visible_fields.2  }}<br><br>
+
+                            {% csrf_token %}
+                            <button type="submit" name= 'analysis_{{ scoreDataSelect.visible_fields.0.label }}' >분석</button></td>
+                        </form>
+                        <form action="."  enctype="multipart/form-data" method="post">
+                            <td>{{ scoreDataSelect.visible_fields.0  }}</td>
+                            {% csrf_token %}
+                            <td><button type="submit" name= 'output_{{ scoreDataSelect.visible_fields.0.label }}' >출력</button></td>
+                            <td><button type="submit" name= 'remove_{{ scoreDataSelect.visible_fields.0.label }}' >삭제</button></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container" align="left">
+        <!--
+        <div class="row">
+            <div class="col-md-12">
+                <h5 style="margin-bottom:15px">데이터 입력</h5>
+                {% if form1.errors %}
+                <p style="color: red;">
+                    Please correct the error{{ form1.errors|pluralize }} below.
+                </p>
+                {% endif %}
+
+                <form action="."  enctype="multipart/form-data" method="post">
+                    <table>
+                        {{ form1.as_table }}
+                    </table>
+                    <table>
+                        {{ form1_1.as_table }}
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit" name="input" >입력</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 style="margin-bottom:15px">데이터 출력</h5>
+                <form action="{% url 'dataIO' %}"  method="post">
+                    <table>
+                        {{ form2.as_table }}
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit" name="output" >출력</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 style="margin-bottom:15px">데이터 분석</h5>
+                <form action="{% url 'dataIO' %}"  method="post">
+                    <table>
+                        {{ form3.as_table }}
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit" name="analysis" >분석</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 style="margin-bottom:15px">데이터 삭제</h5>
+                <form action="{% url 'dataIO' %}"  method="post">
+                    <table>
+                        {{ form4.as_table }}
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit" name="remove" >삭제</button>
+                </form>
+            </div>
+        </div>
+        -->
+    </div>
+    <hr>
+
+</main>
+{% endblock %}

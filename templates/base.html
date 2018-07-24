@@ -1,0 +1,93 @@
+<!doctype html>
+{% load static %}
+{% load nvd3_tags %}
+<html lang="kr">
+<head>
+    <title>POSCO ICT</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <script type="text/javascript" src="{% static '/jquery/jquery-3.2.1.js' %}" ></script>
+    <link media="all" href="{% static '/nvd3/build/nv.d3.min.css' %}" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="{% static '/charts/chart.js/dist/Chart.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/d3/d3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/nvd3/build/nv.d3.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css">
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">Posco ICT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item {% if region == '서울.경기' %} active {% endif %}">
+                <a class="nav-link" href="/region_seoul_gyeongi">센터⠐분당</a>
+            </li>
+            <li class="nav-item {% if region == '광양' %} active {% endif %}">
+                <a class="nav-link" href="/region_gwangyang">광양</a>
+            </li>
+            <li class="nav-item {% if region == '포항' %} active {% endif %}">
+                <a class="nav-link" href="/region_pohang">포항</a>
+            </li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="dropdown">
+                <style>
+                    .scrollable-menu {
+                                        height: auto;
+                                        max-height: 200px;
+                                        width:200px;
+                                        overflow-x: hidden;
+                                    }
+                </style>
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown">부그룹
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    {% if bu %}
+                    {% for i in bu %}
+                    <li><a href="/bu_{{ i.1 }}">{{ i.0 }}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            {% with url_name=request.resolver_match.url_name %}
+            <li class="nav-item {% if url_name == 'dataIO' %}active{% endif %}">
+                <a class="nav-link" href="/dataIO">데이터관리</a>
+            </li>
+            <li class="nav-item {% if url_name == 'guide' %}active{% endif %}">
+                <a class="nav-link" href="/guide">사용자가이드</a>
+            </li>
+            {% endwith %}
+        </ul>
+    </div>
+
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0" type="get" action=".">
+        <input class="form-control mr-sm-2" id ="search_box" name="search_box" type="text" placeholder="사번으로 검색" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+
+<footer class="container">
+    <p>POSCO ICT 2017</p>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static '/bootstrap/dist/js/bootstrap.min.js' %}" ></script>
+
+</body>
+</html>

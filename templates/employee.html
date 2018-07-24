@@ -1,0 +1,247 @@
+{% extends './base.html' %}
+{% block content %}
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    {% if empID %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-md-12" style="margin-top:10px;">
+                <h1>사원번호 {{ empID }}</h1>
+                <br>
+                <h4>몰입: {{ scoreAvg.0 }}</h4>
+                <h4>성과: {{ scoreAvg.1 }}</h4>
+                <h4>핵심: {{ scoreAvg.2 }}</h4>
+                <h4>업무: {{ scoreAvg.3 }}</h4>
+                <p>(최근 분석 점수)</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>이름</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ name }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>근무지</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ place }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>부</h6></div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ bu_emp }}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>나이</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ age }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>핵심인력</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {% if coreyn %}
+                            O
+                            {% else %}
+                            X
+                            {% endif %}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>성별</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {% if sex %}
+                            남자
+                            {% else %}
+                            여자
+                            {% endif %}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>근무기간</h6></div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ workduration }} 년</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>PM레벨</h6></div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if pmlevel != None %}
+                            {{ pmlevel }}
+                            {% else %}
+                            PM 아님
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>email주소</h6></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ emailaddr }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-light mb-3" style="max-width: 15rem;">
+                    <div class="card-header"><h6>분석대상여부</h6></div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if istarget %}
+                                분석대상
+                            {% else %}
+                            분석대상아님
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="container" align="center">
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h5 style="margin-bottom:15px">최종스코어</h5>
+                        {{ score.as_html }}
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">성과평가</h5>
+                        {{ grade.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">교육이수</h5>
+                        {{ edu.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">출장</h5>
+                        {{ trip.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">연차소진</h5>
+                        {{ holiday.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">설문조사</h5>
+                        {{ survey.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">IMS</h5>
+                        {{ ims.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">결재</h5>
+                        {{ approval.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">휴대장치</h5>
+                        {{ portable.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">PC반출</h5>
+                        {{ pcout.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">PC컨트롤</h5>
+                        {{ pccontrol.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">감사</h5>
+                        {{ thank.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">ECM</h5>
+                        {{ ecm.as_html }}
+                    </div>
+                </div>
+                <hr><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">공용VDI</h5>
+                        {{ vdiShare.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">개인VDI</h5>
+                        {{ vdiIndi.as_html }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">카페&식당</h5>
+                        {{ cafe.as_html }}
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="margin-bottom:15px">블로그</h5>
+                        {{ blog.as_html }}
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <div class="col-md-12">
+                        <h5 style="margin-bottom:15px">이메일사용</h5>
+                       {{ email.as_html }}
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    {% elif fail %}
+    <div class="jumbotron">
+        <div class="container">
+            <h2 class="display-3">사원번호<br>{{ fail }}에대한 결과가 없습니다.</h2>
+            <br>
+            <br>
+        </div>
+    </div>
+    {% endif %}
+</main>
+{% endblock %}

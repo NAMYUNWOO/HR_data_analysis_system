@@ -1,0 +1,310 @@
+<!doctype html>
+{% load static %}
+{% load nvd3_tags %}
+<html lang="kr">
+<head>
+    <title>POSCO ICT</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="{% static '/jquery/jquery-3.2.1.js' %}" ></script>
+    <link rel="stylesheet" href="{% static '/jquery-ui/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/jQRangeSlider/css/iThing.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static '/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/jQRangeSlider/jquery.mousewheel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/jQRangeSlider/jQDateRangeSlider-min.js' %}"></script>
+
+
+
+    <script src="{% static '/simga.js-1.2.1/src/sigma.core.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/conrad.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/utils/sigma.utils.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/utils/sigma.polyfills.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/sigma.settings.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.dispatcher.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.configurable.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.graph.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.camera.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.quad.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/classes/sigma.classes.edgequad.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/captors/sigma.captors.mouse.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/captors/sigma.captors.touch.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/sigma.renderers.canvas.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/sigma.renderers.webgl.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/sigma.renderers.svg.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/sigma.renderers.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.utils.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/middlewares/sigma.middlewares.copy.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/misc/sigma.misc.animation.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/misc/sigma.misc.bindEvents.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/src/misc/sigma.misc.drawHovers.js' %}"></script>
+    <!-- END SIGMA IMPORTS -->
+    <script src="{% static '/simga.js-1.2.1/plugins/sigma.plugins.neighborhoods/sigma.plugins.neighborhoods.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/plugins/sigma.layout.forceAtlas2/supervisor.js' %}"></script>
+    <script src="{% static '/simga.js-1.2.1/plugins/sigma.layout.forceAtlas2/worker.js' %}"></script>
+    <link media="all" href="{% static '/nvd3/build/nv.d3.min.css' %}" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="{% static '/d3/d3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/nvd3/build/nv.d3.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css">
+
+</head>
+<body >
+
+<div id="slider_"></div>
+<br>
+<div class="input-group" style="width:300px;">
+   <input type="text" id="inputID" class="form-control">
+   <span class="input-group-btn">
+        <button id="node_search" class="btn btn-outline-secondary"  type="button">사번검색</button>
+   </span>
+</div>
+
+
+<div id="container">
+    <style>
+    #graph-container {
+      top: 20%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      background-color: #262626;
+
+
+    }
+    .sigma-edge {
+      stroke: #48ece0;
+    }
+    .sigma-node{
+      stroke: #48ece0;
+      stroke-width: 1;
+    }
+
+    .sigma-node:hover {
+      stroke: #48ece0;
+      stroke-width: 4;
+    }
+    .muted {
+      fill-opacity: 0.1;
+      stroke-opacity: 0.1;
+    }
+  </style>
+    <div id="graphContainer">
+        <div id="graph-container"></div>
+    </div>
+</div>
+<script>
+/**
+* This is a basic example of how one could spawn a freestyle svg renderer
+* to achieve his/her goal through css and jQuery to display fancy graphs
+* but somewhat less performant.
+*/
+
+var i,
+s,
+g = {{ g|safe }};
+
+// Instantiate sigma:
+s = new sigma({
+  graph: g,
+  settings: {
+    enableHovering: false
+  }
+});
+
+s.addRenderer({
+  id: 'main',
+  type: 'svg',
+  container: document.getElementById('graph-container'),
+  freeStyle: true,
+  settings:{
+             hideEdgesOnMove: true,
+
+             defaultLabelColor: '#ffff',
+             }
+});
+
+s.refresh();
+
+// Binding silly interactions
+function mute(node) {
+  if (!~node.getAttribute('class').search(/muted/))
+  node.setAttributeNS(null, 'class', node.getAttribute('class') + ' muted');
+}
+
+function unmute(node) {
+  node.setAttributeNS(null, 'class', node.getAttribute('class').replace(/(\s|^)muted(\s|$)/g, '$2'));
+}
+
+$('.sigma-node').click(function() {
+
+  // Muting
+  $('.sigma-node, .sigma-edge').each(function() {
+    mute(this);
+  });
+
+  // Unmuting neighbors
+  var neighbors = s.graph.neighborhood($(this).attr('data-node-id'));
+  neighbors.nodes.forEach(function(node) {
+
+    unmute($('[data-node-id="' + node.id + '"]')[0]);
+  });
+
+  neighbors.edges.forEach(function(edge) {
+    unmute($('[data-edge-id="' + edge.id + '"]')[0]);
+  });
+});
+
+s.bind('clickStage', function() {
+  $('.sigma-node, .sigma-edge').each(function() {
+    unmute(this);
+  });
+});
+
+$('#node_search').click(function() {
+  var empID = $("#inputID").val().toString();;
+  // Muting
+  $('.sigma-node, .sigma-edge').each(function() {
+    mute(this);
+  });
+  var neighbors = s.graph.neighborhood(empID);
+  neighbors.nodes.forEach(function(node) {
+    if (node.id == empID){
+    unmute($('[data-node-id="' + node.id + '"]')[0]);
+    }
+  });
+
+});
+
+
+
+
+$("#slider_").dateRangeSlider({
+  bounds:{
+    min: new Date({{ latest_year }}-2, {{ latest_month }}-1, 0),
+    max: new Date({{ latest_year }}, 12, 0)
+  },
+  defaultValues:{
+    min: new Date({{ latest_year }}, {{ latest_month }}-1, {{ latest_day }}),
+    max: new Date({{ latest_year }}, {{ latest_month }}-1, {{ latest_day }})
+  }
+});
+
+$("#slider_").on("valuesChanged", function(e, data){
+  var values = $("#slider_").dateRangeSlider("values");
+
+  $.ajax({ // .like 버튼을 클릭하면 <새로고침> 없이 ajax로 서버와 통신하겠다.
+    type: "POST", // 데이터를 전송하는 방법을 지정
+    url: "{% url 'snaGraph' %}", // 통신할 url을 지정
+    data: {'date_min': values.min, 'date_max':values.max,'csrfmiddlewaretoken': '{{ csrf_token }}'}, // 서버로 데이터 전송시 옵션
+    dataType: "json", // 서버측에서 전송한 데이터를 어떤 형식의 데이터로서 해석할 것인가를 지정, 없으면 알아서 판단
+    // 서버측에서 전송한 Response 데이터 형식 (json)
+    // {'likes_count': post.like_count, 'message': message }
+    success: function(response){ // 통신 성공시 - 동적으로 sigma refresh
+      $('#graph-container').remove();
+      $('#graphContainer').html('<div id="graph-container"></div>');
+      s = new sigma({
+        graph: response,
+        settings: {
+          enableHovering: false
+        }
+      });
+
+      s.addRenderer({
+        id: 'main',
+        type: 'svg',
+        container: document.getElementById('graph-container'),
+        freeStyle: true,
+        settings:{
+             hideEdgesOnMove: true,
+
+             defaultLabelColor: '#ffff',
+             }
+      });
+
+      s.refresh();
+
+      // Binding silly interactions
+      function mute(node) {
+        if (!~node.getAttribute('class').search(/muted/))
+        node.setAttributeNS(null, 'class', node.getAttribute('class') + ' muted');
+      }
+
+      function unmute(node) {
+        node.setAttributeNS(null, 'class', node.getAttribute('class').replace(/(\s|^)muted(\s|$)/g, '$2'));
+      }
+
+      $('.sigma-node').click(function() {
+
+        // Muting
+        $('.sigma-node, .sigma-edge').each(function() {
+          mute(this);
+        });
+
+        // Unmuting neighbors
+        var neighbors = s.graph.neighborhood($(this).attr('data-node-id'));
+        neighbors.nodes.forEach(function(node) {
+          unmute($('[data-node-id="' + node.id + '"]')[0]);
+        });
+
+        neighbors.edges.forEach(function(edge) {
+          unmute($('[data-edge-id="' + edge.id + '"]')[0]);
+        });
+      });
+
+      s.bind('clickStage', function() {
+        $('.sigma-node, .sigma-edge').each(function() {
+          unmute(this);
+        });
+      });
+      $('#node_search').click(function() {
+        var empID = $("#inputID").val().toString();;
+        // Muting
+        $('.sigma-node, .sigma-edge').each(function() {
+          mute(this);
+        });
+        var neighbors = s.graph.neighborhood(empID);
+        neighbors.nodes.forEach(function(node) {
+          if (node.id == empID){
+          unmute($('[data-node-id="' + node.id + '"]')[0]);
+          }
+        });
+
+      });
+
+    },
+    error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
+      alert("데이터가 존재하지않습니다.");
+      //window.location.replace("/accounts/login/")
+      //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    },
+  });
+});
+
+</script>
+</body>
+</html>
